@@ -1,4 +1,3 @@
-
 # streamlit run "/Users/aalyavora/Desktop/PDF Document Analyzer - GenAI copy/app.py"
 import os
 import requests
