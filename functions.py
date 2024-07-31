@@ -48,38 +48,30 @@ def extract_text_from_image(image_path):
 
 def get_assistant_response(query, text_content):
     """Sends a query to Gemini and retrieves a response using the provided text content."""
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAJQICrt6u5D48UW-a6dHFphnI5zLpVWLo"
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = {
-        "contents": [
-            {
-                "parts": [
-                    {
-                        "text": f"Answer the following query based on the provided text content:\n\n{query}\n\nText Content:\n{text_content}"
-                    }
-                ]
-            }
-        ]
-    }
-    
     try:
-        # Adding a timeout to the request
-        response = requests.post(url, headers=headers, json=data, timeout=10)
-        response.raise_for_status()  # Raises an HTTPError for bad responses (4xx and 5xx)
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAJQICrt6u5D48UW-a6dHFphnI5zLpVWLo"
+        headers = {
+            "Content-Type": "application/json"
+        }
+        data = {
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": f"Answer the following query based on the provided text content:\n\n{query}\n\nText Content:\n{text_content}"
+                        }
+                    ]
+                }
+            ]
+        }
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
         response_data = response.json()
-        
-        # Extracting the generated text from the response data
         generated_text = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-        
         if generated_text:
             return generated_text
         else:
             return "Gemini couldn't generate a response for your query."
-    except requests.exceptions.Timeout:
-        print("Request timed out.")
-        return "The request to Gemini timed out. Please try again later."
     except requests.exceptions.RequestException as e:
         print(f"Error getting response from Gemini: {e}")
         return f"Error communicating with Gemini: {e}"
