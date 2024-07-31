@@ -3,11 +3,11 @@
 import os
 import requests
 from PyPDF2 import PdfFileReader
-from PIL import Image
-import pytesseract
+from paddleocr import PaddleOCR
 
 
 def save_uploaded_file(uploaded_file):
+    """Saves an uploaded file to the server."""
     try:
         os.makedirs("uploaded_files", exist_ok=True)
         file_path = os.path.join("uploaded_files", uploaded_file.name)
@@ -36,15 +36,18 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 def extract_text_from_image(image_path):
-    """Extracts text from an image file using OCR."""
-    try:
-        image = Image.open(image_path)
-        text = pytesseract.image_to_string(image)
-        print(f"Extracted text from image: {text}")
+    ocr = PaddleOCR()
+    result = ocr.ocr(image_path, cls=True)
+    
+    # Check the type of result and handle it appropriately
+    if isinstance(result, list):
+        text = ""
+        for line in result:
+            for word_info in line:
+                text += word_info[1][0] + " "  # Concatenate detected words
         return text
-    except Exception as e:
-        print(f"Error extracting text from image: {e}")
-        return ""
+    else:
+        return "Error: Unexpected result format"
 
 def get_assistant_response(query, text_content):
     """Sends a query to Gemini and retrieves a response using the provided text content."""
