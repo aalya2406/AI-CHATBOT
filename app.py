@@ -71,7 +71,7 @@ def main():
             if message['role'] == "user":
                 st.markdown(f"**You:** {message['content']}")
             else:
-                st.markdown(f"**Gemini:** {message['content']}")
+                st.markdown(f"**AI:** {message['content']}")
 
 if __name__ == "__main__":
     main()
