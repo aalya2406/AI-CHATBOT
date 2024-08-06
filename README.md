@@ -1,6 +1,6 @@
 # AI-CHATBOT
 
-deployable link:https://alwrite-chat.streamlit.app/
+deployable link: https://ai-chatbot-test.streamlit.app/
 
 This project is a web application designed to analyze and interact with document files using AI. It allows users to upload PDF, text, and image files, processes the content, and provides responses based on user queries.
 
