@@ -57,7 +57,7 @@ def main():
                 conversation += f"{message['role']}: {message['content']}\n"
 
             response = get_assistant_response(conversation, text_content)
-            st.write("AI:", response)
+            st.write("Gemini:", response)
 
             # Add the AI's response to the chat history
             st.session_state.chat_history.append({"role": "assistant", "content": response})
