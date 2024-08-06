@@ -2,7 +2,7 @@
 # streamlit run "/Users/aalyavora/Desktop/PDF Document Analyzer - GenAI copy/app.py"
 import os
 import requests
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 from PIL import Image
 import pytesseract
 
@@ -23,13 +23,13 @@ def extract_text_from_pdf(pdf_path):
     """Converts a PDF file to text."""
     try:
         with open(pdf_path, "rb") as f:
-            pdf_reader = PdfFileReader(f)
+            pdf_reader = PdfReader(f)  # Updated class
             text = ""
-            for page_num in range(pdf_reader.numPages):
-                page = pdf_reader.getPage(page_num)
+            for page_num in range(len(pdf_reader.pages)):  # Updated to use len(pdf_reader.pages)
+                page = pdf_reader.pages[page_num]
                 page_text = page.extract_text()
                 print(f"Page {page_num}: {page_text}")
-                text += page_text
+                text += page_text or ""  # Handle cases where extract_text() returns None
         return text
     except Exception as e:
         print(f"Error converting PDF to text: {e}")
@@ -49,7 +49,7 @@ def extract_text_from_image(image_path):
 def get_assistant_response(query, text_content):
     """Sends a query to Gemini and retrieves a response using the provided text content."""
     try:
-        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAJQICrt6u5D48UW-a6dHFphnI5zLpVWLo"
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCdw80QhIe2sLDTf1bgO6zQ4UVI12pti8I"
         headers = {
             "Content-Type": "application/json"
         }
