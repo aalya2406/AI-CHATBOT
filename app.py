@@ -10,7 +10,7 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    uploaded_files = st.file_uploader("Choose files to upload", type=["pdf", "txt", "png", "jpg", "jpeg"], accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Choose files to upload", type=["pdf", "txt", "png", "jpg"], accept_multiple_files=True)
 
     if uploaded_files:
         all_text_content = ""
