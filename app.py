@@ -19,7 +19,7 @@ def main():
             if file_path:
                 if file_path.lower().endswith('.pdf'):
                     text_content = extract_text_from_pdf(file_path)
-                elif file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+                elif file_path.lower().endswith(('.png', '.jpg')):
                     text_content = extract_text_from_image(file_path)
                 else:
                     text_content = ""
