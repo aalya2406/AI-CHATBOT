@@ -10,7 +10,7 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    uploaded_files = st.file_uploader("Choose files to upload", type=["pdf", "txt", "png", "jpg"], accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Choose files to upload", type=["pdf", "txt", "png", "jpg", "jpeg"], accept_multiple_files=True)
 
     if uploaded_files:
         all_text_content = ""
@@ -19,7 +19,7 @@ def main():
             if file_path:
                 if file_path.lower().endswith('.pdf'):
                     text_content = extract_text_from_pdf(file_path)
-                elif file_path.lower().endswith(('.png', '.jpg')):
+                elif file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
                     text_content = extract_text_from_image(file_path)
                 else:
                     text_content = ""
