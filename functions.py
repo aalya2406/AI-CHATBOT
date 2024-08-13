@@ -49,7 +49,7 @@ def extract_text_from_image(image_path):
 def get_assistant_response(query, text_content):
     """Sends a query to Gemini and retrieves a response using the provided text content."""
     try:
-        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBZJncEQenznjlWuhDcaxipS1ywBapyrRA"
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAt7bt6-bjrltmWGQa9XgaPz5kE_QLX7rU"
         headers = {
             "Content-Type": "application/json"
         }
